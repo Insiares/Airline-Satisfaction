@@ -89,6 +89,21 @@ if tabs =='Prediction':
         travel_class = row[1].selectbox('Class', ['Business', 'Eco', 'Proletarian'])
         distance = row[1].slider('Flight distance (miles?)', min_value=30, max_value=5000, value=500)
         delay = st.slider('Delay (minutes)', min_value=0, max_value=2000)
+        if st.button('Simulate a satisfaction form'):
+            time_convenience = st.slider('Departure/Arrival time convenient', min_value=0,max_value=5)
+            booking_ease = st.slider('Ease of Online booking', min_value=0,max_value=5)
+            gate = st.slider('Gate location', min_value=0,max_value=5)
+            coca = st.slider('Food and drink', min_value=0,max_value=5)
+            online_boarding = st.slider('Online boarding', min_value=0,max_value=5)
+            comfort = st.slider('Seat comfort', min_value=0,max_value=5)
+            entertainment = st.slider('Inflight entertainment', min_value=0,max_value=5)
+            onboard_service = st.slider('On-board service', min_value=0,max_value=5)
+            leg = st.slider('Leg room service', min_value=0,max_value=5)
+            bagage = st.slider('Baggage handling', min_value=1,max_value=5) #why
+            checkin = st.slider('Checkin service', min_value=0,max_value=5)
+            inflight_service = st.slider('Inflight service', min_value=0,max_value=5)
+            clean = st.slider('Cleanliness', min_value=0,max_value=5)
+
 
         submit = st.form_submit_button('Request Prediction')
 
