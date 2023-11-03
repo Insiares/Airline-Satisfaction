@@ -12,11 +12,10 @@ tabs = st.sidebar.radio("Select an UI :", ("DashBoard Data", "Prediction"))
 
 if tabs =='DashBoard Data':
     st.subheader('Dashboard Data')
-
     #load clean or raw csv
     # TODO : Logic check if csv not exists
     dir_path = os.path.abspath(os.path.dirname(__file__))
-    input_filepath = os.path.join(dir_path, 'Data/Airline_Dataset.csv')
+    input_filepath = os.path.join(dir_path, 'Data/satisfaction_customers_export.csv')
     clean_file_path = clean_file(input_filepath)
 
     file = st.select_slider('Select Data File', ['Raw', 'Cleaned'])
