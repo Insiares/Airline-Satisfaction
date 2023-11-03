@@ -116,15 +116,15 @@ DATABASE_URL = get_database_url()
 engine = create_engine(DATABASE_URL)
 
 # Lancement de l'import dans MySQL
-'''
+
 if database_exists(engine.url):
     drop_database(engine.url)
     print('Little bobby tables, he dropped it')
-'''
 
-if database_exists(engine.url):
 
-    # create_db(DATABASE_URL)
+if not database_exists(engine.url):
+
+    create_db(DATABASE_URL)
     create_tables(DATABASE_URL)
 
     # print_tables(DATABASE_URL)
@@ -211,10 +211,21 @@ JOIN
     age a ON sc.age_id = a.id;
 """
 
+col = ['id', 'Gender', 'Customer Type', 'Type of Travel', 'Class', 'Satisfaction',
+       'Age', 'Flight Distance', 'Inflight wifi service',
+       'Departure/Arrival time convenient', 'Ease of Online booking',
+       'Gate location', 'Food and drink', 'Online boarding', 'Seat comfort',
+       'Inflight entertainment', 'On-board service', 'Leg room service',
+       'Baggage handling', 'Checkin service', 'Inflight service',
+       'Cleanliness', 'Departure Delay in Minutes', 'Arrival Delay in Minutes',
+       ]
 
 df = pd.read_sql_query(query, engine)
 
+df.columns=col
+
 # Exportez les résultats dans un fichier CSV
+
 csv_file_path = 'Data/satisfaction_customers_export.csv'
 df.to_csv(csv_file_path, index=False)
 
