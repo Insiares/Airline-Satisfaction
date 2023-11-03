@@ -28,9 +28,10 @@ def clean_file(file_path):
 
     data = data.dropna()
 
-
     data['Total_Delay'] = data['Departure_Delay_in_Minutes'] + data['Arrival_Delay_in_Minutes']
-
+    data=data.drop(['Departure_Delay_in_Minutes'], axis=1)
+    data=data.drop(['Arrival_Delay_in_Minutes'], axis=1)
+    data=data.drop(['id'], axis=1)
     data['Satisfaction'] = data['Satisfaction'].map({'neutral or dissatisfied': 0, 'satisfied': 1})
     data = pd.get_dummies(data, columns=['Gender', 'Customer_Type', 'Type_of_Travel', 'Class'])
 
@@ -38,5 +39,3 @@ def clean_file(file_path):
     data.to_csv(exit_path, index=False)
 
     return exit_path
-
-

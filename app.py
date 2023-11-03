@@ -53,7 +53,7 @@ if tabs =='DashBoard Data':
     plot_type = st.selectbox('Type of plot', options=['strip','violin', 'box', 'count'])
     selected_x = st.selectbox('Select abcissa : ', data.columns, key='x_2')
     selected_y = st.selectbox('Select ordinate : ', data.columns, key='y_2')
-    selected_z = st.selectbox('Select a category is you need : ', data.columns)
+    selected_z = st.selectbox('Select a category if you need it : ', data.columns)
 
     if plot_type and selected_x and selected_y:
         if selected_z:
@@ -69,8 +69,6 @@ if tabs =='DashBoard Data':
             st.pyplot(fig)
 
 
-
-
 if tabs =='Prediction':
     #Prediction Form
     st.header('Input Parameters')
@@ -82,35 +80,93 @@ if tabs =='Prediction':
         header[1].subheader('Flight')
 
         row = st.columns(2)
-        gender = row[0].selectbox('Gender', ['Male', 'Female'])
-        customer_type = row[0].selectbox('Customer Type', ['Loyal', 'Disloyal'])
-        travel_type = row[1].selectbox('Type of travel', ['Business', 'Personnal'])
+        gender_select = row[0].selectbox('Gender', ['Male', 'Female']) 
+        customer_type_select = row[0].selectbox('Customer Type', ['Loyal', 'Disloyal']) 
+        travel_type_select = row[1].selectbox('Type of travel', ['Business', 'Personnal']) 
         age = row[0].slider('Age', min_value=5, max_value=80, value=30)
-        travel_class = row[1].selectbox('Class', ['Business', 'Eco', 'Proletarian'])
+        travel_class_select = row[1].selectbox('Class', ['Business', 'Eco', 'Proletarian']) 
         distance = row[1].slider('Flight distance (miles?)', min_value=30, max_value=5000, value=500)
         delay = st.slider('Delay (minutes)', min_value=0, max_value=2000)
-        if st.button('Simulate a satisfaction form'):
-            time_convenience = st.slider('Departure/Arrival time convenient', min_value=0,max_value=5)
-            booking_ease = st.slider('Ease of Online booking', min_value=0,max_value=5)
-            gate = st.slider('Gate location', min_value=0,max_value=5)
-            coca = st.slider('Food and drink', min_value=0,max_value=5)
-            online_boarding = st.slider('Online boarding', min_value=0,max_value=5)
-            comfort = st.slider('Seat comfort', min_value=0,max_value=5)
-            entertainment = st.slider('Inflight entertainment', min_value=0,max_value=5)
-            onboard_service = st.slider('On-board service', min_value=0,max_value=5)
-            leg = st.slider('Leg room service', min_value=0,max_value=5)
-            bagage = st.slider('Baggage handling', min_value=1,max_value=5) #why
-            checkin = st.slider('Checkin service', min_value=0,max_value=5)
-            inflight_service = st.slider('Inflight service', min_value=0,max_value=5)
-            clean = st.slider('Cleanliness', min_value=0,max_value=5)
-
-
+        # expand_form = st.toggle('Simulate a satisfaction form')
+        # if expand_form:
+        st.subheader('Form')
+        row2 = st.columns(3)
+        time_convenience = row2[0].slider('Departure/Arrival time convenient', min_value=0,max_value=5)
+        booking_ease = row2[1].slider('Ease of Online booking', min_value=0,max_value=5)
+        gate = row2[2].slider('Gate location', min_value=0,max_value=5)
+        coca = row2[0].slider('Food and drink', min_value=0,max_value=5)
+        online_boarding = row2[1].slider('Online boarding', min_value=0,max_value=5)
+        comfort = row2[2].slider('Seat comfort', min_value=0,max_value=5)
+        entertainment = row2[0].slider('Inflight entertainment', min_value=0,max_value=5)
+        onboard_service = row2[1].slider('On-board service', min_value=0,max_value=5)
+        leg = row2[2].slider('Leg room service', min_value=0,max_value=5)
+        bagage = row2[0].slider('Baggage handling', min_value=1,max_value=5) #why
+        checkin = row2[1].slider('Checkin service', min_value=0,max_value=5)
+        inflight_service = row2[2].slider('Inflight service', min_value=0,max_value=5)
+        clean = row2[0].slider('Cleanliness', min_value=0,max_value=5)
+        wifi = row2[1].slider('Inflight Wifi Service', min_value=0,max_value=5)
         submit = st.form_submit_button('Request Prediction')
 
+    if gender_select == 'Male':
+        male=1
+        female=0
+    else:
+        male=0
+        female=1
 
+    if customer_type_select =='Loyal':
+        cust_type_loyal = 1
+        cust_type_dis = 0
+    else: 
+        cust_type_loyal = 0
+        cust_type_dis = 1
 
-
-
+    if travel_type_select =='Business':
+        travel_type_business = 1
+        travel_type_perso = 0
+    else: 
+        travel_type_business = 0
+        travel_type_perso = 1
     
+    if travel_class_select =='Business':
+        travel_class_business = 1
+        travel_class_eco = 0
+        travel_class_ecoplus = 0
+    elif travel_class_select == 'Eco':
+        travel_class_business = 0
+        travel_class_eco = 1
+        travel_class_ecoplus = 0
+    else:
+        travel_class_business = 0
+        travel_class_eco = 0
+        travel_class_ecoplus = 1
 
-
+    passanger_data = { 'Gender_Female': female ,	
+                        'Gender_Male': male	,
+                    'Customer_Type_Loyal': cust_type_loyal 	,
+                    'Customer_Type_disloyal' : cust_type_dis	,
+                    'Type_of_Travel_Business' : travel_type_business,	
+                    'Type_of_Travel_Personal ' : travel_type_perso,	
+                    'Class_Business' : travel_class_business	,
+                    'Class_Eco' : travel_class_eco	,
+                    'Class_Eco Plus' : travel_class_ecoplus ,
+                    'Age' : age, 
+                'Flight_Distance' : distance, 
+                'Inflight_wifi_service' : wifi ,
+                'Departure_Arrival_time_convenient' : time_convenience, 
+                'Ease_of_Online_booking' : booking_ease,
+                'Gate location' : gate, 
+                'Food_and_drink' : coca, 
+                'Online_boarding' : online_boarding, 
+                'Seat_comfort' : comfort,
+                'Inflight_entertainment' : entertainment, 
+                'On_board_service' : onboard_service, 
+                'Leg_room_service' : leg,
+                'Baggage_handling' : bagage, 
+                'Checkin_service' : checkin, 
+                'Inflight_service' : inflight_service,
+                'Cleanliness' : clean, 
+                'Total_Delay' : delay
+                }
+    if submit:
+        st.write(passanger_data)
