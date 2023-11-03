@@ -17,7 +17,7 @@ path_csv_brut = 'Data/Airline_Dataset.csv'
 
 def get_database_url():
 
-    env_path = os.path.join(os.path.dirname(__file__), 'config/.env')
+    env_path = os.path.join(os.path.dirname(__file__), 'Config/.env')
     config = Config(RepositoryEnv(env_path))
 
     host = config('MYSQL_HOST')
